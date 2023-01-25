@@ -1,11 +1,12 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
+import DatabaseConstants from './constants';
 config();
 
 export const databaseProviders = [
   {
-    provide: 'DATA_ORM',
+    provide: DatabaseConstants.DATA_ORM,
     useFactory: async () => {
       const configService = new ConfigService();
 

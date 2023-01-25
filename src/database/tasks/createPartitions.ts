@@ -1,7 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import { DateTime } from 'luxon';
 import { DataSource } from 'typeorm';
+import DatabaseConstants from '../constants';
 import {
   registeredPartitionedTables,
   PartitionedTableOptions,
@@ -12,11 +13,11 @@ export class CreatePartitionTask {
   private readonly logger = new Logger(CreatePartitionTask.name);
 
   constructor(
-    @Inject('DATA_ORM')
+    @Inject(DatabaseConstants.DATA_ORM)
     private orm: DataSource,
   ) {}
 
-  @Cron('1 1 */15 12 *')
+  @Cron('1 1 30 11 *')
   handleCron() {
     this.logger.debug('Calling CreatePartitionTask');
     for (const key of Object.keys(registeredPartitionedTables)) {
